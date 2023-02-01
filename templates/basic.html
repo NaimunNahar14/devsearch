@@ -16,33 +16,90 @@
       integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
       crossorigin="anonymous"
     />
-    <link rel="stylesheet" href="{% static 'styles/style.css' %}">
+    <link rel="stylesheet" href="{% static 'styles/style.css' %}" />
     <title>{% block title %}{% endblock title %}</title>
   </head>
-  <body style="background-color: #343a40;">
+  <body style="background-color: #343a40">
     <!-- Navbar  -->
-<nav class="navbar navbar-expand-lg navbar-light bg-dark">
-  <div class="container">
-    <a class="navbar-brand text-white" href="#">Devsearch</a>
-  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-    <span class="navbar-toggler-icon"></span>
-  </button>
-  <div class="collapse navbar-collapse" id="navbarSupportedContent">
-   <ul class="navbar-nav ml-auto">
-      <li class="nav-item active">
-        <a class="nav-link text-white" href="{% url 'index' %}">Home <span class="sr-only">(current)</span></a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link text-white" href="{% url 'projects' %}">Projects</a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link text-white" href="{% url 'createProject' %}">Create Project</a>
-      </li>
-    </ul>
-  </div>
-  </div>
-</nav>
-<!-- Navbar  -->
+    <nav class="navbar navbar-expand-lg navbar-light bg-dark">
+      <div class="container">
+        <a class="navbar-brand text-white" href="{% url 'profiles' %}"
+          >Devsearch</a
+        >
+        <button
+          class="navbar-toggler"
+          type="button"
+          data-toggle="collapse"
+          data-target="#navbarSupportedContent"
+          aria-controls="navbarSupportedContent"
+          aria-expanded="false"
+          aria-label="Toggle navigation"
+        >
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+          <ul class="navbar-nav ml-auto">
+            <li class="nav-item active">
+              <a class="nav-link text-white" href="{% url 'profiles' %}"
+                >Home <span class="sr-only">(current)</span></a
+              >
+            </li>
+            <li class="nav-item">
+              <a class="nav-link text-white" href="{% url 'projects' %}"
+                >Projects</a
+              >
+            </li>
+
+            {% if request.user.is_authenticated %}
+            <li class="nav-item">
+              <a class="nav-link text-white" href="{% url 'profiles' %}"
+                >Inbox</a
+              >
+            </li>
+            <li class="nav-item">
+              <a class="nav-link text-white" href="{% url 'user' %}"
+                >Profile</a
+              >
+            </li>
+            <li class="nav-item">
+              <a class="nav-link text-white" href="{% url 'createProject' %}"
+                >Create Project</a
+              >
+            </li>
+            <li class="nav-item">
+              <a class="nav-link text-white" href="{% url 'logout' %}"
+                >Logout</a
+              >
+            </li>
+            {% else %}
+            <li class="nav-item">
+              <a class="nav-link text-white" href="{% url 'login' %}">Login</a>
+            </li>
+            {% endif %}
+          </ul>
+        </div>
+      </div>
+    </nav>
+
+    <div class="container">
+      {% if messages %}
+      {% for message in messages %}
+      <div class="alert alert-success alert-dismissible fade show" role="alert">
+        <strong>{{message}}</strong>
+        <button
+          type="button"
+          class="close"
+          data-dismiss="alert"
+          aria-label="Close"
+        >
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      {% endfor %}
+      {% endif %}
+    </div>
+
+    <!-- Navbar  -->
     {% block body %} {% endblock body %}
 
     <script

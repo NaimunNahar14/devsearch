@@ -1,0 +1,17 @@
+{% extends 'basic.html' %}
+
+{% block title %}
+User Login
+{% endblock title %}
+{% block body %}
+
+<h1>Signup </h1>
+<form action=" {% url 'signup' %} " method="POST">
+    {% csrf_token %}
+    {{userForm.as_p}}
+    <input type="submit">
+</form>
+
+
+
+{% endblock body %}

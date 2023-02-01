@@ -1,0 +1,17 @@
+{% extends 'basic.html' %}
+
+{% block title %}
+User Login
+{% endblock title %}
+{% block body %}
+
+
+<form action="{% url 'login' %}" method="POST">
+    {% csrf_token %}
+    <input type="text" name="username"  placeholder="Enter User name">
+    <input type="password" name="password"  placeholder="Enter password">
+    <input type="submit">
+    <a href="{% url 'signup' %} ">Create Account</a>
+</form>
+
+{% endblock body %}
